@@ -13,7 +13,7 @@ class Category(models.Model):
 class Post(models.Model):
     name = models.CharField(max_length=255)
     content = models.TextField(blank=True, null=True)
-    photo = models.ImageField(blank=True, null=True)
+    photo = models.ImageField(upload_to='photos/', blank=True, null=True)
     views = models.IntegerField(default=0)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

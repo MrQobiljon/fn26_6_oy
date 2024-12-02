@@ -3,9 +3,13 @@ from django.shortcuts import render
 from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpResponse
 
+from .models import Category, Post
+
 
 def home(request: WSGIRequest):
-    return render(request, 'index.html')
+    posts = Post.objects.all()
+    return render(request, 'index.html',
+                  {"posts": posts})
 
 
 def about(request: WSGIRequest):
