@@ -1,30 +1,200 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>FN26 guruhi</title>
+
+    <!-- Font Awesome -->
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  rel="stylesheet"
+/>
+<!-- Google Fonts -->
+<link
+  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+  rel="stylesheet"
+/>
+<!-- MDB -->
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/8.1.0/mdb.min.css"
+  rel="stylesheet"
+/>
+
 </head>
 <body>
 
-<h1>Salom Dunyo</h1>
 
-{% for post in posts %}
-<ul>
-    <li>{{ post.name }}</li>
-    <li>{{ post.content }}</li>
-    <li>{{ post.views }}</li>
-    <li>{{ post.created }}</li>
-    <li>{{ post.updated }}</li>
-    <li>{{ post.category }}</li>
-    {% if post.photo %}
-    <li><img src="{{ post.photo.url }}"></li>
-    {% else %}
-    <li><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZFsMo-w00y09aJykeWkXo7Nxudybu1fWKMQ&s"></li>
-    {% endif %}
-</ul>
-<hr>
-{% endfor %}
+<div class="container">
 
+    <!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
+  <!-- Container wrapper -->
+  <div class="container-fluid">
+    <!-- Toggle button -->
+    <button
+      data-mdb-collapse-init
+      class="navbar-toggler"
+      type="button"
+      data-mdb-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Collapsible wrapper -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <!-- Navbar brand -->
+      <a class="navbar-brand mt-2 mt-lg-0" href="{% url 'home' %}">
+        <img
+          src="{% static 'images/logo.png' %}"
+          height="50"
+          alt="MDB Logo"
+          loading="lazy"
+        />
+      </a>
+      <!-- Left links -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'home' %}">Asosiy sahifa</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'biz_haqimizda' %}">Biz haqimizda</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'kantakt' %}">Contact</a>
+        </li>
+      </ul>
+      <!-- Left links -->
+    </div>
+    <!-- Collapsible wrapper -->
+
+    <!-- Right elements -->
+    <div class="d-flex align-items-center">
+      <!-- Icon -->
+      <a class="text-reset me-3" href="#">
+        <i class="fas fa-shopping-cart"></i>
+      </a>
+
+      <!-- Notifications -->
+      <div class="dropdown">
+        <a
+          data-mdb-dropdown-init
+          class="text-reset me-3 dropdown-toggle hidden-arrow"
+          href="#"
+          id="navbarDropdownMenuLink"
+          role="button"
+          aria-expanded="false"
+        >
+          <i class="fas fa-bell"></i>
+          <span class="badge rounded-pill badge-notification bg-danger">1</span>
+        </a>
+        <ul
+          class="dropdown-menu dropdown-menu-end"
+          aria-labelledby="navbarDropdownMenuLink"
+        >
+          <li>
+            <a class="dropdown-item" href="#">Some news</a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="#">Another news</a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </li>
+        </ul>
+      </div>
+      <!-- Avatar -->
+      <div class="dropdown">
+        <a
+          data-mdb-dropdown-init
+          class="dropdown-toggle d-flex align-items-center hidden-arrow"
+          href="#"
+          id="navbarDropdownMenuAvatar"
+          role="button"
+          aria-expanded="false"
+        >
+          <img
+            src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+            class="rounded-circle"
+            height="25"
+            alt="Black and White Portrait of a Man"
+            loading="lazy"
+          />
+        </a>
+        <ul
+          class="dropdown-menu dropdown-menu-end"
+          aria-labelledby="navbarDropdownMenuAvatar"
+        >
+          <li>
+            <a class="dropdown-item" href="#">My profile</a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="#">Settings</a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="#">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- Right elements -->
+  </div>
+  <!-- Container wrapper -->
+</nav>
+<!-- Navbar -->
+
+
+<div align="center" class="mt-5 mb-5">
+    {% for category in categories %}
+    <a href="" type="button" class="btn btn-primary" data-mdb-ripple-init>
+        {{ category.name }}
+    </a>
+    {% endfor %}
+</div>
+
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for post in posts %}
+    <div class="col">
+    <div class="card h-100">
+        {% if post.photo %}
+      <img src="{{ post.photo.url }}" class="card-img-top" alt="Skyscrapers"/>
+      {% else %}
+        <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/043.webp" class="card-img-top" alt="Skyscrapers"/>
+        {% endif %}
+        <div class="card-body">
+        <h5 class="card-title">{{ post.name }}</h5>
+        <p class="card-text">
+          {{ post.content|truncatewords:10 }}
+        </p>
+            <a href="" class="btn btn-primary">Batafsil</a>
+      </div>
+      <div class="card-footer d-flex justify-content-between">
+        <div class="text-muted">{{ post.created }}</div>
+        <div class="text-muted">{{ post.views }}</div>
+        <div class="text-muted">{{ post.category }}</div>
+      </div>
+    </div>
+  </div>
+    {% endfor %}
+</div>
+</div>
+
+
+
+
+
+
+<script src="{% static '/js/script.js' %}"></script>
+
+<!-- MDB -->
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/8.1.0/mdb.umd.min.js"
+></script>
 
 </body>
 </html>

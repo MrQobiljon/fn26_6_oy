@@ -8,12 +8,18 @@ from .models import Category, Post
 
 def home(request: WSGIRequest):
     posts = Post.objects.all()
-    return render(request, 'index.html',
-                  {"posts": posts})
+    categories = Category.objects.all()
+
+    context = {
+        "posts": posts,
+        "categories": categories
+    }
+
+    return render(request, 'index.html', context)
 
 
 def about(request: WSGIRequest):
-    return HttpResponse("<h1>FN26 guruhi<h1>")
+    return render(request, 'about.html')
 
 
 def contact(request):
